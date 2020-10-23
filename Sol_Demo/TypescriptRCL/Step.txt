@@ -1,0 +1,50 @@
+﻿https://chrissainty.com/getting-started-with-typescript-for-jsinterop-in-blazor/
+
+Step 1:
+Create a .ts file in wwwroot folder.
+
+Step 2:
+Download following package from package manager console.
+Go to Tools menu -> Nuget Package Manager -> Package Manager Console
+Microsoft.TypeScript.MSBuild
+
+Note : visual studio will show warning on top side. Button will appererd in warning that to Reload Project. Do not Reload project and close the warnign.
+
+Step 3:
+Unload and Reload RCL solution.
+
+Step 4:
+Again Unload Project and Edit .csproj file. To add some configuration.
+
+<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<RazorLangVersion>3.0</RazorLangVersion>
+		<RootNamespace>TypescriptRCL</RootNamespace>
+		<TypeScriptToolsVersion>4.0</TypeScriptToolsVersion>
+	</PropertyGroup>
+	
+	Define ts file path
+	<ItemGroup>
+		<TypeScriptCompile Include="wwwroot/ShowPromptDemo.ts" />
+	</ItemGroup>
+
+Reload the project and build RCL solution. It will generate .js file.
+
+On the Server Side Blazor
+Step 5:
+ go to _Host.cshtml page inside the pages folder.
+
+ give a referance of Javascript file.
+ <script src="_content/TypescriptRCL/ShowPromptDemo.js"></script>
+
+ Step 6:
+ go to _Import.blazor file and following namespace.
+ @using TypescriptRCL 
+
+ Step 7:
+ Call Demo.razor component in index.razor file.
+
+ <Demo></Demo>
+
+ Step 8:
+ build the application and run it.
