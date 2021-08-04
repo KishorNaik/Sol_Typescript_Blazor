@@ -1,0 +1,60 @@
+﻿https://brianlagunas.com/using-npm-packages-in-blazor/
+https://medium.com/swlh/using-npm-packages-with-blazor-2b0310279320
+https://medium.com/@dneimke/add-typescript-to-an-asp-net-core-project-e8f7411e7b58
+
+Step 1:
+Let’s create a folder named ClientSide in our Blazor application.
+
+Step 2:
+We’ll now initialize a new npm project inside the ClientSide folder.
+
+Step 3:
+Run the following command.
+npm init -y
+
+	3.1
+	Download following package.
+	npm install webpack webpack-cli typescript ts-loader --save-dev
+
+
+	3.2
+	Now we’ll create the webpack.config.js inside the JsLib folder which will handle the configurations for webpack
+
+	3.3
+	Create a Ts config file using following command
+    npx tsc --init
+
+	3.4
+	Add this to the “scripts” section in the package.json
+	"build": "webpack --mode production"
+
+Step 4:
+Create a new directory src inside the ClientSide folder and create a new file named index.js.
+    4.1 
+    Install moment.js via npm. // for demo purpose
+
+    npm install moment
+
+    4.2
+    we’ll create a new file called time_lib.js in the src folder
+
+Step 5:
+Let’s now build our library using this command:
+npm run build
+
+As you can see, our build.js is now in the wwwroot/js folder of our Blazor application.
+
+Step 6:
+We’ll start with adding our library to the JS files used by our Blazor application. In _Host.cshtml , add the following line:
+ <script src="~/js/build.js"></script>
+
+Step 7:
+Go to Pages Folder, Create a Demo folder.
+Create Timer components
+
+Step 8:
+Modify the csproj to add a pre-build step that will run our npm build script.
+<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="npm install" WorkingDirectory="ClientSide" />
+		<Exec Command="npm run build" WorkingDirectory="ClientSide" />
+</Target>
